@@ -92,6 +92,7 @@ for folder in buoys:
     thk = thk.astype(float)
     pos = pos.drop(['(mm/dd/yy hh:mm)'])
     pos = pos.where(pos.Longitude != ' ')
+    pos = pos.where(pos.Latitude != '0')
     pos = pos.astype(float)
     pos.index = pd.to_datetime(pos.index)
     pos.Longitude[pos.Longitude < 0] = pos.Longitude[pos.Longitude < 0] + 360
