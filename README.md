@@ -9,12 +9,12 @@ Data can be found at:
 Scripts utilize Python 3.8.3 and Jupyter. Python packages required include:
 
 numpy 
-pandas  
+pandas 
 glob 
-datetime     
-scipy. 
-xarray. 
-pyproj. 
-matplotlib. 
-cartopy. 
-cmocean. 
+datetime 
+scipy 
+xarray 
+pyproj 
+matplotlib 
+cartopy 
+cmocean 
