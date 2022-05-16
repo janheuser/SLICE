@@ -8,9 +8,9 @@ Data can be found at:
 
 Scripts utilize Python 3.8.3 and Jupyter. Python packages required include:
 
-numpy. 
-pandas. 
-glob. 
+numpy 
+pandas  
+glob 
 datetime     
 scipy. 
 xarray. 
