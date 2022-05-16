@@ -8,13 +8,13 @@ Data can be found at:
 
 Scripts utilize Python 3.8.3 and Jupyter. Python packages required include:
 
-numpy\n
-pandas 
-glob
-datetime
-scipy
-xarray
-pyproj
-matplotlib
-cartopy
-cmocean
+numpy. 
+pandas. 
+glob. 
+datetime     
+scipy. 
+xarray. 
+pyproj. 
+matplotlib. 
+cartopy. 
+cmocean. 
