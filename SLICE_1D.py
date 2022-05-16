@@ -12,7 +12,6 @@ import glob
 from datetime import timedelta
 from datetime import datetime
 from scipy.stats import circmean
-import calctsi as ct
 import xarray as xr
 from pyproj import Transformer, CRS, Geod
 from scipy.interpolate import griddata
