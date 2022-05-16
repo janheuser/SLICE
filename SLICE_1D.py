@@ -132,9 +132,6 @@ for folder in buoys:
         print(f'{data.index[i]}\r', end="")
 
         if data.loc[data.index[i], 'dur'] > timedelta(minutes=0):
-#             data.loc[data.index[i], 'atsi'] = ct.calcTsi_amsr_loc(data.index[i].date(),
-#                                                                   data.loc[data.index[i], 'Latitude'],
-#                                                                   data.loc[data.index[i], 'Longitude'])
             
             tsi = xr.open_dataset(tsifp + str(data.index[i].year) + str(data.index[i].dayofyear) + '.nc').dat
             tsi_x, tsi_y = transformer.transform(tsi.lat.values, tsi.lon.values)
