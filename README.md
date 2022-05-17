@@ -18,3 +18,15 @@ pyproj
 matplotlib  
 cartopy  
 cmocean  
+
+Auxilliary data required include:  
+
+
+TSI  
+SIC  
+CS2SMOS  
+Motion vectors  
+OIB  
+IMB  
+PIOMAS  
+Kang, 2021   
