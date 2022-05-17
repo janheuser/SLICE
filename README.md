@@ -29,4 +29,4 @@ Motion vectors: https://doi.org/10.5067/INAWUWO7QH7B
 OIB: https://doi.org/10.5067/G519SHCKWQV6  
 IMB: http://imb-crrel-dartmouth.org  
 PIOMAS:  http://psc.apl.uw.edu/research/projects/arctic-sea-ice-volume-anomaly/  
-Kang, 2021:  https://doi.org/10.1029/2020MS002448  
+Kang et al., 2021:  https://doi.org/10.1029/2020MS002448  
