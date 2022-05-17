@@ -19,10 +19,10 @@ matplotlib
 cartopy  
 cmocean  
 
+
 Auxilliary data required include:  
 
-
-TSI  
+AMSR BTs  
 SIC  
 CS2SMOS  
 Motion vectors  
