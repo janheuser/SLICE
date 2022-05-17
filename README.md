@@ -22,11 +22,11 @@ cmocean
 
 Auxilliary data required include:  
 
-AMSR BTs  
-SIC  
-CS2SMOS  
-Motion vectors  
-OIB  
-IMB  
-PIOMAS  
-Kang, 2021   
+AMSR-E and AMSR2 brightness temperatures: https://doi.org/10.5067/AMSR-E/AE_SI25.003; https://doi.org/10.5067/TRUIAL3WPAUP
+AMSR-E and AMSR2 SIC: https://doi.org/10.5067/AMSR-E/AE_SI25.003; https://doi.org/10.5067/TRUIAL3WPAUP  
+AWI CS2SMOS: https://www.meereisportal.de   
+Motion vectors: https://doi.org/10.5067/INAWUWO7QH7B  
+OIB: https://doi.org/10.5067/G519SHCKWQV6  
+IMB: http://imb-crrel-dartmouth.org  
+PIOMAS:  http://psc.apl.uw.edu/research/projects/arctic-sea-ice-volume-anomaly/
+Kang, 2021:  https://doi.org/10.1029/2020MS002448  
