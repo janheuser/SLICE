@@ -6,6 +6,8 @@ Anheuser, J., Liu, Y., and Key, J.: A daily basin-wide sea ice thickness retriev
 
 Data can be found at:
 
+https://zenodo.org/deposit/6554832
+
 Scripts utilize Python 3.8.3 and Jupyter. Python packages required include:
 
 numpy  
