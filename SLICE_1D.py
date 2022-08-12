@@ -1,5 +1,5 @@
 ##############################################################################################################################
-# Date: 2022-5-9
+# Date: 2022-8-10
 # Name: SLICE_1D.py
 # Author: James Anheuser
 # Description: Applies SLICE thermodynamic sea ice thickness growth retrieval to a 1D profile along ice mass balance buoy tracks 
@@ -12,20 +12,19 @@ import glob
 from datetime import timedelta
 from datetime import datetime
 from scipy.stats import circmean
+import calctsi as ct
 import xarray as xr
 from pyproj import Transformer, CRS, Geod
 from scipy.interpolate import griddata
 
 
 buoys = ['2003C', '2005F', '2006C', '2012G', '2012H', '2012L', '2013F', '2013G', '2015F'] #buoys to analyze
-tsifp = '/ships19/cryo/janheuser/tsi/corrected/' #filepath for snow--ice interface data
-outfp = '/home/janheuser/projects/thk/SLICE_paperrevs/' #output directory
+outfp = '/home/janheuser/projects/thk/SLICE_paperrevs/release_2/' #output directory
 
 transformer = Transformer.from_crs(4326, 6931)
 
 def latmean(lons):
     return circmean(lons, high=360, low=0, nan_policy='omit')
-
 
 def cond_eff(T, S):
     """Calculate effective sea ice conductivity based on Feltham et al. (2006)
@@ -42,7 +41,7 @@ def cond_eff(T, S):
     V_a = 0.025
     k_i = 1.16 * (1.91 - 8.66e-3 * T + 2.97e-5 * T ** 2)
     k_b = 1.16 * (0.45 + 1.08e-2 * T + 5.04e-5 * T ** 2)
-    k_bi = k_i * (2 * k_i + k_a - 2 * V_a * (k_i - k_a)) / (2 * k_i + k_a + 2 * V_a * (k_i - k_a))
+    k_bi = k_i * (2 * k_i + k_a - 2 * V_a * (k_i - k_a)) / (2 * k_i + k_a + V_a * (k_i - k_a))
     T_l = -.0592 * S - 9.37e-6 * S ** 2 - 5.33e-7 * S ** 3
 
     return k_bi - (k_bi - k_b) * T_l / T
@@ -131,14 +130,13 @@ for folder in buoys:
         print(f'{data.index[i]}\r', end="")
 
         if data.loc[data.index[i], 'dur'] > timedelta(minutes=0):
+            data.loc[data.index[i], 'atsi'] = ct.calcTsi_amsr_loc(data.index[i].date(),
+            data.loc[data.index[i], 'Latitude'], data.loc[data.index[i], 'Longitude'])
             
-            tsi = xr.open_dataset(tsifp + str(data.index[i].year) + str(data.index[i].dayofyear) + '.nc').dat
-            tsi_x, tsi_y = transformer.transform(tsi.lat.values, tsi.lon.values)
-            b_x, b_y = transformer.transform(data.Latitude[i], data.Longitude[i])
-            data.loc[data.index[i], 'atsi'] = griddata((tsi_y.flatten(),tsi_x.flatten()),tsi.values.flatten(),(b_y,b_x), method='linear')
     
     data['atsi']=data['atsi'].fillna(method='bfill')
-    
+    data['atsi']=data['atsi'].where(data['atsi']>0)
+
     i = 0
 
     data.loc[data.index[i], 'H_predicted'] = data.loc[data.index[i], 'Ice Thickness']

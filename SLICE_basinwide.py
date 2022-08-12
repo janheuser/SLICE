@@ -1,5 +1,5 @@
 ##############################################################################################################################
-# Date: 2022-5-6
+# Date: 2022-8-10
 # Name: SLICE_basinwide.py
 # Author: James Anheuser
 # Description: Applies SLICE thermodynamic sea ice thickness growth retrieval to a basin-wide scale sea ice model
@@ -18,11 +18,11 @@ import glob
 
 
 
-years = range(2013,2020) #years to apply 
+years = range(2012,2020) #years to apply 
 motvecfp = '/ships19/cryo/janheuser/mot_vec/' #filepath for motion vector data
 cs2fp = '/ships19/cryo/janheuser/cs2smos/ftp.awi.de/sea_ice/product/cryosat2_smos/v203/nh/' #filepath for CryoSat-2 data
 tsifp = '/ships19/cryo/janheuser/tsi/corrected/' #filepath for snow--ice interface data
-outfp = '/home/janheuser/projects/thk/SLICE_paperrevs/mean_3/' #output directory
+outfp = '/home/janheuser/projects/thk/SLICE_paperrevs/release_2/SLICE_basinwide/' #output directory
 
 
 def cond_eff(T, S):
@@ -71,7 +71,7 @@ def stefpred(H_i, T_si, F_w, dur_seconds):
     return np.sqrt(H_i**2 + (2*k_eff/rho/L)*dur_seconds*(T_f+273-T_si))-dur_seconds*F_w/rho/L
 
 
-ease=xr.open_dataset('../EASE2_N25km.geolocation.v0.9.nc')
+ease=xr.open_dataset('/home/janheuser/projects/thk/EASE2_N25km.geolocation.v0.9.nc')
 ease['y']=-ease.y
 
 y_bins=0.5*ease.y.values[:-1]+0.5*ease.y.values[1:]
@@ -141,10 +141,10 @@ for year in years:
               str(mot.time[t].dt.day.values), end="\r") #print date 
 
         #load in Tsi and SIC
-        tsi = xr.open_dataset(tsifp + str(mot.time[t].dt.year.values) + str(mot.time[t].dt.dayofyear.values) + '.nc').dat
         sic = ct.readamsr_sic(date(mot.time[t+1].dt.year.values, mot.time[t+1].dt.month.values, mot.time[t+1].dt.day.values))
         sic = sic.where(sic.dat!=120)
         sic = sic.where(sic.dat>0)
+        tsi=ct.calcTsi_amsr(date(mot.time[t+1].dt.year.values, mot.time[t+1].dt.month.values, mot.time[t+1].dt.day.values)).dat
 
         #regrid Tsi/ SIC from stereo to EASE
         transformer = Transformer.from_crs(4326, 6931)
